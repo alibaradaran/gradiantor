@@ -181,6 +181,10 @@ body{
     bottom: 0px;
     box-sizing: border-box;
 }
+.gn8-gradiantor-tool-wrap {
+    position: relative;
+    z-index: 1;
+}
 .gn8-colorize-tool-preview{
     position: relative;
     display: flex;
@@ -212,7 +216,7 @@ body{
     left: 0;
     right: 0;
     background-color: rgba(255, 255, 255, .5);
-    z-index: -50;
+    z-index: 0;
 }
 .gn8-colorize-picker-area{
     position: relative;
