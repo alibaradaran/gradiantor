@@ -7,13 +7,10 @@
     <title>Colorize</title>
     <script src="colorize.js" ></script>
     <script src="gradiantor.js" ></script>
-    <link rel="stylesheet" href="colorize-style.css">
-    <link rel="stylesheet" href="gradiantor-style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="colorizer">
-        <input id="color-input" type="text" value="rgba(255,0,0,1)">
-    </div>
+    <div id="gradiantor"></div>
     <script>       
         document.getElementById( "gradiantor" ).addEventListener( "click", function (e) {
             e.stopPropagation();
@@ -31,7 +28,6 @@
             }
             var gradiantor = new Gn8Gradiantor( data );
             gradiantor.init().then( success => {
-                /* "linear-gradient(45deg,rgb(55, 192, 176) 0%,rgb(245, 155, 146) 100%)" */
                 document.getElementById( "gradiantor" ).style.backgroundImage = success;
                 console.log( success );
             },error => {} );
