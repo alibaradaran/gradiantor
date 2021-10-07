@@ -1,0 +1,473 @@
+html{
+    font-family: sans-serif, Helvetica, Arial;
+    height: 100%;
+}
+body{
+    width: 100%;
+    height: 100%;
+    background-color: #eceeed;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+#colorizer,
+#gradiantor{
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    ;background-color: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+#color-input {
+    padding: 14px;
+    border-radius: 5px;
+    border: 1px grey solid;
+    text-align: center;
+    letter-spacing: 3px;
+}
+
+.gn8-gradiantor-radial-list{
+    position: absolute;
+    bottom: 0px;
+    margin-left: 0px;
+    padding-inline-start: 0px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex: auto;
+    list-style-type: none;
+    margin: 0;
+    margin-bottom: 5px;
+    padding: 0;
+}
+.gn8-gradiantor-radial-list .items{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+.gn8-gradiantor-toolbox{
+    position: absolute;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    width: 350px;
+    height: auto;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+.gn8-gradiantor-tool-container{
+    z-index: 100;
+    width: 350px;
+    height: 350px;
+    position: relative;
+}
+.gn8-gradiantor-gradient-container{
+    position: absolute;
+    transform-origin: 50% 50%;
+}
+.gn8-gradiantor-radial-gradient-container{
+    position: absolute;
+    transform-origin: 50% 0%;
+}
+.gn8-gradiantor-rotate{
+    position: absolute;
+    transform-origin: 50% 50%;
+    border-radius: 50%;
+    box-sizing: border-box;
+    margin: 0!important;
+    cursor: grab;
+    cursor: -moz-grab;
+    background-image: url("compas.png");
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.gn8-gradiantor-rotate:hover{
+    border: 2px solid rgb( 128,128,128 );
+}
+.gn8-gradiantor-frame{
+    position: absolute;
+    border: 1px solid rgb( 128,128,128 );
+    box-sizing: border-box;
+}
+.gn8-gradiantor-frame.radial{
+    cursor: crosshair;
+}
+.gn8-gradiantor-gradient-steps{
+    position: absolute;
+    display: block;
+    width: 0px;
+    height: 100%;
+    left: 50%;
+    top: 0px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+.gn8-gradiantor-gradient-steps canvas{
+    width: 0px;
+    border-radius: 10px;
+}
+.gn8-gradiantor-gradient-container:hover .gn8-gradiantor-gradient-steps,
+.gn8-gradiantor-radial-gradient-container:hover .gn8-gradiantor-gradient-steps {
+    display: block;
+    width: 10px;
+    cursor: crosshair;
+    transform: translateX( -5px );
+    border: 1px solid white;
+}
+.gn8-gradiantor-gradient-container:hover .gn8-gradiantor-gradient-steps canvas,
+.gn8-gradiantor-radial-gradient-container:hover .gn8-gradiantor-gradient-steps canvas {
+    width: 10px;
+}
+.gn8-colorize-chart{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 275px;
+    align-items: center;
+}
+.gn8-colorize-a-color{
+    width: 17px;
+    height: 17px;
+    margin: 1px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.gn8-colorize-a-color.selected{
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+.gn8-colorize-tool-input{
+    padding: 5px;
+    display: flex;
+    flex: 1 1 45%;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+.gn8-colorize-tool-input input{
+    padding: 5px;
+    font-size: .9em;
+    border-radius: 5px;
+    border: 1px solid rgb(200,200,200);
+    width: 45%;
+}
+.gn8-colorize-toolbox{
+    position: absolute;
+    top: 0px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    width: 350px;
+    height: 480px;
+    background-color: white;
+    border-radius: 5px;
+    z-index: 1000;
+}
+.gn8-colorize-toolbox > .gn8-colorize-tool-wrap {
+    padding: 20px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    box-sizing: border-box;
+}
+.gn8-colorize-tool-preview{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-radius: 5px;
+    background-position: 0px 0px, 6px 6px;
+    background-size: 12px 12px;
+    background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
+    overflow: hidden;
+}
+.gn8-colorize-tool-preview p{
+    z-index: 10;
+    font-size: 1.3em;
+    letter-spacing: .2em;
+}
+.gn8-colorize-tool-preview .color{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 0;
+}
+.gn8-colorize-wrap, .gn8-gradiantor-wrap{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, .5);
+    z-index: -50;
+}
+.gn8-colorize-picker-area{
+    position: relative;
+    height: 150px;
+}
+#gn8-colorize-picker-canvas{
+    border-radius: 5px;
+}
+.gn8-colorize-tool-list, .gn8-gradiantor-tool-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex: auto;
+    list-style-type: none;
+    margin: 0;
+    margin-bottom: 20px;
+    padding: 0;
+}
+.gn8-colorize-tool{
+    margin-left: 10px;
+    font-size: .8em;
+    cursor: pointer;
+    color: rgba(0,0,0,0.4);
+    text-transform: uppercase;
+}
+.gn8-colorize-tool.active{
+    color: rgba(0,0,0,1);
+}
+.gn8-gradiantor-tool{
+    margin-left: 10px;
+    font-size: .8em;
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 20px;
+    height: 20px;
+    padding: 1px;
+    border-radius: 5px;
+    border: 1px solid rgb( 200,200,200 );
+}
+.gn8-gradiantor-tool.active{
+    border: 2px solid rgb( 200,200,200 );
+}
+.gn8-colorize-range.alpha{
+    background-position: 0px 0px, 6px 6px;
+    background-size: 12px 12px;
+    background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
+    height: 12px;
+    border-radius: 10px;
+}
+.gn8-colorize-range-track.alpha{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.gn8-colorize-range-track.hue{
+    background: -webkit-linear-gradient(left, rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255), rgb(255, 0, 0));
+}
+.gn8-colorize-range-track {
+    box-shadow: inset rgba(0,0,0,.11) 0 0 0 1px;
+    border-radius: 10px;
+    height: 12px;
+    width: 100%;
+    top: 50%;
+}
+.gn8-colorize-range-group label{
+    text-transform: uppercase;
+    font-size: .7em;
+}
+.gn8-colorize-range-group input{
+    padding: 5px;
+    font-size: .7em;
+    border-radius: 5px;
+    border: 1px solid rgb(200,200,200);
+}
+.gn8-colorize-range-group{
+    height: 24px;
+    position: relative;
+    margin-top: 5px;
+}
+.gn8-colorize-range{
+    height: 24px;
+    position: relative;
+    margin-top: 15px;
+}
+.gn8-colorize-range-group[data-channel]{
+    height: auto;
+    position: relative;
+}
+.gn8-colorize-range-cursor {
+    color: #000;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: rgba(0,0,0,.15) 0 0 0 1px,rgba(0,0,0,.05) 0 10px 10px -5px;
+    cursor: -webkit-grab;
+    cursor: grab;
+    width: 24px;
+    height: 24px;
+    top:-25%;
+    position: absolute;
+    transition: border .15s ease,box-shadow .15s ease;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gn8-colorize-range-cursor.alpha {
+    top:-50%;
+}
+
+.gn8-gradiantor-gradient-container:hover .gn8-gradiantor-picker-cursor, 
+.gn8-gradiantor-radial-gradient-container:hover .gn8-gradiantor-picker-cursor {
+    left: 0px;
+}
+
+.gn8-gradiantor-gradient-container:hover .gn8-gradiantor-picker-cursor.active, 
+.gn8-gradiantor-radial-gradient-container:hover .gn8-gradiantor-picker-cursor.active {
+    left: -3px;
+}
+
+.gn8-gradiantor-picker-cursor {
+    color: #000;
+    background: #fff;
+    border-radius: 8px;
+    border: 0px none white;
+    box-shadow: rgba(0,0,0,.15) 0 0 0 1px,rgba(0,0,0,.05) 0 10px 10px -5px;
+    cursor: -webkit-pointer;
+    cursor: pointer;
+    width: 10px;
+    left: -5px;
+    height: 10px;
+    position: absolute;
+    transition: border .15s ease,box-shadow .15s ease;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gn8-gradiantor-picker-cursor.gn8-gradient-radial-is-moving{
+    position: fixed;
+}
+.gn8-gradiantor-picker-cursor span {
+    border-radius: 5px;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    box-shadow: inset rgba(0,0,0,.15) 0 0 0 1px;
+}
+.gn8-gradiantor-picker-cursor.active {
+    width: 16px;
+    left: -8px;
+    height: 16px;
+}
+
+.gn8-colorize-picker-cursor {
+    color: #000;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: rgba(0,0,0,.15) 0 0 0 1px,rgba(0,0,0,.05) 0 10px 10px -5px;
+    cursor: -webkit-grab;
+    cursor: grab;
+    width: 24px;
+    height: 24px;
+    top:0%;
+    position: absolute;
+    transition: border .15s ease,box-shadow .15s ease;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gn8-colorize-range-cursor span, .gn8-colorize-picker-cursor span {
+    border-radius: 5px;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    box-shadow: inset rgba(0,0,0,.15) 0 0 0 1px;
+    display: none;
+}
+.gn8-colorize-input-number {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+/**
+* MODAL 
+*/
+.gn8-modal{
+    display: block;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0,0,0,.8);
+    z-index: 10000000;
+    padding-top: 5%!important;
+    padding-top: 5%!important;
+    padding-right: 10%!important;
+    padding-left: 10%!important;
+    margin: 0px!important;
+}
+.gn8-modal .gn8-modal-close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 3em;
+    color: white;
+    cursor: pointer;
+}
+.gn8-modal .gn8-modal-lightbox{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    -ms-flex-direction: row;
+    width: 100%;
+    height: calc( 100% - 150px );
+    padding: 5%;
+}
+.gn8-modal .gn8-modal-lightbox .gn8-modal-preview-active{
+    width: 100%;
+    height: 100%;
+}
+.gn8-modal .gn8-modal-lightbox .gn8-modal-lightbox-left-arrow, .gn8-modal .gn8-modal-lightbox .gn8-modal-lightbox-right-arrow{
+    font-size: 3em;
+    color: white;
+    vertical-align: middle;
+    align-content: center;
+    cursor: pointer;
+    text-align: center;
+}
+.gn8-modal .gn8-modal-lightbox .gn8-modal-lightbox-left-arrow{
+    position: absolute;
+    left: 0px;
+}
+.gn8-modal .gn8-modal-lightbox .gn8-modal-lightbox-right-arrow{
+    position: absolute;
+    right: 0px;
+}
+.gn8-modal .gn8-modal-lightbox-view {
+    overflow: hidden;    
+    height: 100%;
+    padding: 10px;
+}
+.gn8-modal .gn8-modal-active{
+    border: 2px solid white;
+}
