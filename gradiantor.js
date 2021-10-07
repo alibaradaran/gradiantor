@@ -65,24 +65,21 @@ class Gn8Gradiantor {
         this.toolbox.classList.add( "gn8-gradiantor-toolbox" );
         this.toolbox.innerHTML = `
             <div class="gn8-gradiantor-wrap" ></div>
-            <ul class="gn8-gradiantor-tool-list" >
-                <li data-tooltype="linear" class="gn8-gradiantor-tool linear" style="background-image: linear-gradient(90deg, black, white); background-clip: content-box;" >
-                </li>
-                <li data-tooltype="radial" class="gn8-gradiantor-tool radial" style="background-image: radial-gradient(black, white); background-clip: content-box;" >
-                </li>
-                <li style="display: flex; flex-direction: row; align-items: center; margin-left: 10px;" > 
-                    <input type="checkbox" id="${this.id}-is-repeating" ${checked} > 
-                    <label for="${this.id}-is-repeating" style="font-size:.8em;">Repeating Gradient</label> 
-                </li>
-            </ul>
-            <div class="gn8-gradiantor-tool-container" ></div>
+            <div class="gn8-gradiantor-tool-wrap" >
+                <ul class="gn8-gradiantor-tool-list" >
+                    <li data-tooltype="linear" class="gn8-gradiantor-tool linear" style="background-image: linear-gradient(90deg, black, white); background-clip: content-box;" >
+                    </li>
+                    <li data-tooltype="radial" class="gn8-gradiantor-tool radial" style="background-image: radial-gradient(black, white); background-clip: content-box;" >
+                    </li>
+                    <li style="display: flex; flex-direction: row; align-items: center; margin-left: 10px;" > 
+                        <input type="checkbox" id="${this.id}-is-repeating" ${checked} > 
+                        <label for="${this.id}-is-repeating" style="font-size:.8em;">Repeating Gradient</label> 
+                    </li>
+                </ul>
+                <div class="gn8-gradiantor-tool-container" ></div>
+            </div>            
         `;
         this.container.appendChild( this.toolbox );
-        this.toolbox.querySelector( ".gn8-gradiantor-wrap" ).addEventListener( "click", function (e) {
-            e.stopPropagation();
-            this.toolbox.remove();
-            this.promiseResolve( this.string );
-        }.bind( this ) );
         this.toolContainer = this.toolbox.querySelector( ".gn8-gradiantor-tool-container" );
         this.toolContainer.addEventListener( "click", function (e) {
             if ( e.target == e.currentTarget ) {
@@ -93,6 +90,13 @@ class Gn8Gradiantor {
                     element.classList.remove( "active" );
                 } );
             }
+        }.bind( this ) );
+        this.toolbox.addEventListener( "click", function (e) {
+            e.stopPropagation();
+        } );
+        this.toolbox.querySelector( ".gn8-gradiantor-wrap" ).addEventListener( "click", function (e) {
+            this.toolbox.remove();
+            this.promiseResolve( this.string );
         }.bind( this ) );
         this.promise = new Promise( ( resolve, reject ) => {
             this.promiseResolve = resolve;
@@ -339,7 +343,7 @@ class Gn8Gradiantor {
                 lab.style.zIndex = "100";
                 lab.style.border = "1px solid rgb(221,221,221)";
                 lab.style.borderRadius = "5px";
-                this.toolbox.appendChild( lab );
+                this.toolbox.querySelector( ".gn8-gradiantor-tool-wrap" ).appendChild( lab );
             }
             var lab = document.getElementById( this.id + "-lab" );
             lab.innerHTML = `
