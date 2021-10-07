@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorize</title>
+    <script src="colorize.js" ></script>
+    <script src="gradiantor.js" ></script>
+    <link rel="stylesheet" href="colorize-style.css">
+    <link rel="stylesheet" href="gradiantor-style.css">
+</head>
+<body>
+    <div id="colorizer">
+        <input id="color-input" type="text" value="rgba(255,0,0,1)">
+    </div>
+    <script>       
+        document.getElementById( "gradiantor" ).addEventListener( "click", function (e) {
+            e.stopPropagation();
+            /* 
+            { 
+                "id" : null, 
+                "container" : "the container for widget(required)", 
+                "value" : "linear-gradient(45deg,rgb(55, 192, 176) 0%,rgb(245, 155, 146) 100%)" 
+            } 
+            */
+            var data = {
+                "id" : e.currentTarget.id,
+                "container" : document.getElementById( "gradiantor" ),
+                "value" : null
+            }
+            var gradiantor = new Gn8Gradiantor( data );
+            gradiantor.init().then( success => {
+                /* "linear-gradient(45deg,rgb(55, 192, 176) 0%,rgb(245, 155, 146) 100%)" */
+                document.getElementById( "gradiantor" ).style.backgroundImage = success;
+                console.log( success );
+            },error => {} );
+        } );
+    </script>
+</body>
+</html>
